@@ -1,0 +1,22 @@
+//to convert new code to old broser understandable code
+
+//bable/preset-env transpiles es2015 to be compatible with older browsers or environments based on the target browsers or runtime enviornment
+
+//react for all react plygs
+{
+  "presets": [
+    "@babel/preset-env",
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic" //with this we dont have to import react at top //? not working right now //debug later //! not critical
+      }
+    ],
+    [
+      "@babel/preset-typescript",
+      {
+        "regenerator": true //for using async /await as envs dont support them //it allows you to "yield"
+      }
+    ]
+  ]
+}

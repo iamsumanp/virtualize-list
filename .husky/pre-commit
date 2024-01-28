@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. "$(dirname "$0")/_/husky.sh"
+
+
+echo '*** Linting, Formatting and Testing before committing ***'
+
+npx lint-staged  || (
+    echo '\033[0;31m✖✖✖Failed lint-staged check. ✖✖✖\033[0m'
+    false;
+)
+
+npx tsc || (
+    echo -e '\033[0;31m✖✖✖ Failed Type check. ✖✖✖\033[0m'
+    false)
+
+
+
+echo '\033[0;32m✔✔✔ Linting, Styling and Testing passed... This changes will be committed now. 🏹🏹'
