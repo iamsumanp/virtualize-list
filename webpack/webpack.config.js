@@ -12,6 +12,10 @@ module.exports = {
 
   resolve: {
     extensions: ['.tsx', '.jsx', '.js', '.ts'],
+
+    alias: {
+      src: path.resolve(__dirname, '..', 'src'),
+    },
   },
   devtool: 'inline-source-map', //better for dev as source code is mapped in bundled code //use source-map for prod for better debugging
   //? to be added in webpack.dev.js

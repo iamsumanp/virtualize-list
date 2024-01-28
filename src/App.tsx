@@ -1,12 +1,22 @@
 import React from 'react';
 import './styles.css';
-import Test from './Test';
+import VirtulizedList from './components/VirtualizedList';
 
 function App() {
   return (
-    <div>
-      <span>WEBPACK BOILER PLATE</span>
-      <Test />
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: '#233142',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+        overflow: 'hidden',
+      }}
+    >
+      <VirtulizedList />
     </div>
   );
 }
