@@ -1,27 +1,61 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './VirtualizedList.css';
 import { useElementSize } from 'src/hooks/useElementSize';
+import { throttle } from 'lodash';
+
 const VirtulizedList = () => {
-  // const containerRef = useRef<HTMLUListElement | null>(null);
-
   const [containerRef, size] = useElementSize();
-
-  console.log('containerRef,size', containerRef, size);
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
 
   useEffect(() => {}, []);
 
   const { height: containerHeight } = size;
 
-  console.log(containerHeight);
+  const onScroll = useMemo(
+    () =>
+      throttle(
+        //fix type
+        function (e: any) {
+          setScrollPosition(e.target.scrollTop);
+          console.log(scrollPosition);
+        },
+        50,
+        { leading: false }
+      ),
+    [scrollPosition]
+  );
 
-  const onScroll = (e: React.UIEvent<HTMLUListElement>) => {
-    const target = e.target as HTMLUListElement;
-    console.log(target.scrollTop); //! use memo and throttle here
+  const visibleChidren = () => {
+    //start index and end index
+
+    const startIndex = Math.max(Math.floor(scrollPosition / 40), 0); //40 is rowhight //upddate as required
+
+    //!improve logic for end index
+    const endIndex = Math.min(
+      Math.ceil(scrollPosition + containerHeight / 40 - 1),
+      Array.from(new Array(70)).length - 1
+    );
+
+    return Array.from(new Array(70))
+      .slice(startIndex, endIndex)
+      .map((item, index) => (
+        <li
+          className="listyle"
+          style={{
+            position: 'absolute',
+            top: (startIndex + index) * 40 + index * 5,
+            height: 40,
+            left: 0,
+            right: 0,
+          }}
+        >
+          {generateRandomText()}
+        </li>
+      ));
   };
   const generateRandomText = () => {
     const alphabets =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    // const alphabetsCount = alphabets.length;
 
     const expectedLength = 40;
     let randomText = '';
@@ -35,11 +69,13 @@ const VirtulizedList = () => {
     return randomText;
   };
   return (
-    <ul className="container" ref={containerRef} onScroll={onScroll}>
-      {Array.from(new Array(30)).map((item, index) => (
-        <li key={index}>{generateRandomText()}</li>
-      ))}
-      <li></li>
+    <ul
+      className="container"
+      ref={containerRef}
+      onScroll={onScroll}
+      style={{ position: 'relative' }}
+    >
+      {visibleChidren()}
     </ul>
   );
 };

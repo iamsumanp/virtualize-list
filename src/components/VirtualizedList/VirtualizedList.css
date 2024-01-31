@@ -2,11 +2,15 @@
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
+  gap: 5px;
+  padding: 5px;
   /* height: 100%; */
-  height: 120px;
+  height: 400px;
+  /* height: 50vh; */
   border: 2px solid red;
   list-style: none;
   overflow-x: hidden;
+  width: 500px;
 }
 
 .container::-webkit-scrollbar {
@@ -26,4 +30,10 @@
     transparent 75%,
     transparent
   );
+}
+.listyle {
+  /* height: 40px; */
+  min-height: 40px;
+  padding: 5px;
+  border: 2px solid green;
 }

@@ -11,18 +11,15 @@ export const useElementSize = <T extends HTMLElement = HTMLUListElement>(): [
   const [ref, setRef] = useState<T | null>(null);
   const [size, setSize] = useState<Size>({ width: 0, height: 0 });
 
-  //memoize a function
+  //cache function so if height and widht are same donot run the fn
+  const handleSize = useCallback(() => {
+    setSize({
+      width: ref?.offsetWidth || 0,
+      height: ref?.offsetHeight || 0,
+    });
 
-  const handleSize = useCallback(
-    () =>
-      setSize({
-        width: ref?.offsetWidth || 0,
-        height: ref?.offsetHeight || 0,
-      }),
-    [ref?.offsetHeight, ref?.offsetWidth]
-  );
-
-  console.log('changes', ref);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ref?.offsetHeight, ref?.offsetWidth]);
 
   //? one more thing to be added
 
@@ -32,7 +29,7 @@ export const useElementSize = <T extends HTMLElement = HTMLUListElement>(): [
   //this is for whenever the containerref height and width chnages. the handlesize should be run
   useIsoMorphicLayoutEffect(() => {
     handleSize();
-  }, [ref?.offsetHeight, ref?.offsetWidth]); //this either uses uselayouteffect when dom is available instantly in client side and //uses useeffect if it is running in server side as uselayouteffect will give warning
+  }, [ref]); //this either uses uselayouteffect when dom is available instantly in client side and //uses useeffect if it is running in server side as uselayouteffect will give warning
 
   return [setRef, size];
 };
