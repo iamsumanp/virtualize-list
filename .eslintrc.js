@@ -22,6 +22,7 @@ module.exports = {
       jsx: true,
     },
   },
+  ignorePatterns: ['**/*.css'], //!specific to this proj
   // settings: {
   //   'import/resolver': {
   //     node: {
