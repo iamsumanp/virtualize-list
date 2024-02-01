@@ -28,7 +28,7 @@ const VirtulizedList = () => {
     const startIndex = Math.max(Math.floor(scrollPosition / 40), 0); //40 is rowhight //upddate as required
 
     const endIndex = Math.min(
-      Math.ceil((scrollPosition + containerHeight) / 40 - 1), // -1 because of  index that always  starts with 0
+      Math.ceil((scrollPosition + containerHeight) / 40 - 1), //adjust the index of the array
       Array.from(new Array(300000)).length - 1
     );
 
