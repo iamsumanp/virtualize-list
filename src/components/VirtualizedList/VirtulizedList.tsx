@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './VirtualizedList.css';
 import { useElementSize } from 'src/hooks/useElementSize';
 import { throttle } from 'lodash';
@@ -7,22 +7,19 @@ const VirtulizedList = () => {
   const [containerRef, size] = useElementSize();
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
-  useEffect(() => {}, []);
-
   const { height: containerHeight } = size;
 
   const onScroll = useMemo(
     () =>
       throttle(
-        //fix type
-        function (e: any) {
-          setScrollPosition(e.target.scrollTop);
-          console.log(scrollPosition);
+        function (e: React.UIEvent<HTMLUListElement>) {
+          const target = e.target as HTMLUListElement;
+          setScrollPosition(target.scrollTop);
         },
         50,
         { leading: false }
       ),
-    [scrollPosition]
+    []
   );
 
   const visibleChidren = () => {
@@ -30,13 +27,12 @@ const VirtulizedList = () => {
 
     const startIndex = Math.max(Math.floor(scrollPosition / 40), 0); //40 is rowhight //upddate as required
 
-    //!improve logic for end index
     const endIndex = Math.min(
-      Math.ceil(scrollPosition + containerHeight / 40 - 1),
-      Array.from(new Array(70)).length - 1
+      Math.ceil((scrollPosition + containerHeight) / 40 - 1), // -1 because of  index that always  starts with 0
+      Array.from(new Array(300000)).length - 1
     );
 
-    return Array.from(new Array(70))
+    return Array.from(new Array(300000))
       .slice(startIndex, endIndex)
       .map((item, index) => (
         <li
