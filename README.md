@@ -1,1 +1,5 @@
-## Manual setup for react project
+## Optimized Rendering of DOM Elements through Virtualization
+
+ To improve 
+ - Add window resize event to update scroll properties
+ - Make scroller more smooth.
