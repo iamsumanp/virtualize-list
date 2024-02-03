@@ -30,7 +30,7 @@ const VirtulizedList = () => {
   const visibleChidren = () => {
     //start index and end index
 
-    const startIndex = Math.max(Math.floor(scrollPosition / 40), 0); //40 is rowhight //upddate as required
+    const startIndex = Math.max(Math.floor(scrollPosition / 40), 0); //40 is rowhight //upddate as required //to be passed in props or use globally
 
     const endIndex = Math.min(
       Math.ceil((scrollPosition + containerHeight) / 40 - 1), //adjust the index of the array

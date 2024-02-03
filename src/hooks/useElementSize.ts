@@ -5,7 +5,7 @@ interface Size {
   height: number;
 }
 export const useElementSize = <T extends HTMLElement = HTMLUListElement>(): [
-  (node: T | null) => void,
+  React.Dispatch<React.SetStateAction<T | null>>,
   Size,
 ] => {
   const [ref, setRef] = useState<T | null>(null);
