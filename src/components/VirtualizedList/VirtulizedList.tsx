@@ -46,6 +46,57 @@ const VirtulizedList = () => {
             style={{
               position: 'absolute',
               top: (startIndex + index) * 40 + index * 5,
+              // |---------------------|  <- Container start (0px)
+              // |                     |
+              // |   Item 0            |  <- startIndex = 0, index = 0
+              // |---------------------|
+              // |                     |  <- Gap (5px)
+              // |---------------------|
+              // |   Item 1            |  <- startIndex = 0, index = 1
+              // |---------------------|
+              // |                     |  <- Gap (5px)
+              // |---------------------|
+              // |   Item 2            |  <- startIndex = 0, index = 2
+              // |---------------------|
+              // |                     |  <- Gap (5px)
+              // |---------------------|
+              // |   Item 3            |  <- startIndex = 0, index = 3
+              // |---------------------|
+              // |                     |  <- Gap (5px)
+              // |---------------------|
+              // |   Item 4            |  <- startIndex = 0, index = 4
+              // |---------------------|
+              // |                     |
+              // |---------------------|  <- Container end
+
+              // In this diagram, each "Item X" represents a list item. The startIndex and index for each item are also shown. As you can see, startIndex is 0 for all items because we're viewing the list from the very top. The index increases for each item, starting from 0 for the first item.
+              // Now, let's say you've scrolled down such that Item 3 is now the first visible item:
+
+              // |---------------------|  <- Container start (0px)
+              // |                     |
+              // |   Item 3            |  <- startIndex = 3, index = 0
+              // |---------------------|
+              // |                     |  <- Gap (5px)
+              // |---------------------|
+              // |   Item 4            |  <- startIndex = 3, index = 1
+              // |---------------------|
+              // |                     |  <- Gap (5px)
+              // |---------------------|
+              // |   Item 5            |  <- startIndex = 3, index = 2
+              // |---------------------|
+              // |                     |  <- Gap (5px)
+              // |---------------------|
+              // |   Item 6            |  <- startIndex = 3, index = 3
+              // |---------------------|
+              // |                     |  <- Gap (5px)
+              // |---------------------|
+              // |   Item 7            |  <- startIndex = 3, index = 4
+              // |---------------------|
+              // |                     |
+              // |---------------------|  <- Container end
+
+              // In this case, startIndex is 3 because Item 3 is the first visible item. The index starts from 0 for the first visible item (Item 3), and increases for each subsequent item.
+
               height: 40,
               left: 0,
               right: 0,
